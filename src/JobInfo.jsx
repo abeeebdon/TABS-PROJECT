@@ -1,15 +1,15 @@
-import Job from './Job'
+import Duties from './Duties'
 
-const JobInfo = ({ users }) => {
+const JobInfo = ({ users, currentItem }) => {
+  console.log(users)
+  const { order, title, dates, duties, company } = users[currentItem]
   return (
-    <div>
-      <div>
-        {users.map((user) => {
-          console.log(user)
-          return <Job key={user.id} user={user} />
-        })}
-      </div>
-    </div>
+    <article>
+      <h3>{title}</h3>
+      <span className="job-company">{company}</span>
+      <p className="job-date">{dates}</p>
+      <Duties duties={duties} />
+    </article>
   )
 }
 export default JobInfo

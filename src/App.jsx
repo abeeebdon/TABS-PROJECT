@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
 import Loading from './Loading'
 import JobInfo from './JobInfo'
+import BtnContainer from './BtnContainer'
 
 const url = 'https://course-api.com/react-tabs-project'
 
 const App = () => {
   const [users, setUsers] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
+  const [currentItem, setCurrentItem] = useState(0)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
         const resp = await fetch(url)
         const response = await resp.json()
         setUsers(response)
@@ -24,11 +26,19 @@ const App = () => {
     }
     fetchData()
   }, [])
+  console.log(users)
   return (
-    <div>
+    <section className="jobs-center">
+      <BtnContainer
+        users={users}
+        currentItem={currentItem}
+        setCurrentItem={setCurrentItem}
+      />
       {isLoading && <Loading />}
-      {isError ? <p>There is an Error</p> : <JobInfo users={users} />}
-    </div>
+      {!isLoading && !isError && (
+        <JobInfo users={users} currentItem={currentItem} />
+      )}
+    </section>
   )
 }
 export default App
