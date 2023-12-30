@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Loading from './Loading'
 import JobInfo from './JobInfo'
 import BtnContainer from './BtnContainer'
@@ -14,9 +15,8 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await fetch(url)
-        const response = await resp.json()
-        setUsers(response)
+        const resp = await axios(url)
+        setUsers(resp.data)
         setIsLoading(false)
         setIsError(false)
       } catch (error) {
@@ -26,7 +26,6 @@ const App = () => {
     }
     fetchData()
   }, [])
-  console.log(users)
   return (
     <section className="jobs-center">
       <BtnContainer

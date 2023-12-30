@@ -1,8 +1,7 @@
 import Duties from './Duties'
 
 const JobInfo = ({ users, currentItem }) => {
-  console.log(users)
-  const { order, title, dates, duties, company } = users[currentItem]
+  const { title, dates, duties, company } = users[currentItem]
   return (
     <article>
       <h3>{title}</h3>
